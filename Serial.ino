@@ -30,15 +30,28 @@ void Serial_reset_serial_data()
 
 String Serial_read()
 {
-  String result = Serial_data;
+  String result = Serial_peek();
   Serial_reset_serial_data();
   
-  return Serial_read();
+  return result;
+}
+
+String Serial_peek()
+{
+  return Serial_data;
 }
 
 boolean Serial_data_begin_with(String text)
 {
-  return true;
+  String data = Serial_peek();
+  String first_word = data.substring(0, text.length());
+  
+  if (first_word == text)
+  {
+    return true;
+  }
+  
+  return false;
 }
 
 void Serial_print(String text)
